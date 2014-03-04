@@ -1,7 +1,7 @@
 class Soundex
 
   def encode(word)
-    head(word) + encoded_tail(word)
+    head(word) + encoded(tail(word))
   end
 
 private
@@ -13,16 +13,27 @@ private
   end
 
   def tail(word)
-    word[1..-1]
+    drop_unneeded_letters(word[1..-1])
   end
 
-  def encoded_tail(word)
+  def encoded(word)
     encoded = String.new
-    tail(word).each_char do |char| 
+    word.each_char do |char| 
       break if is_full? encoded
-      encoded += (char != "A") ? char : "0"
+      encoded += encoded_char(char)
     end
-    encoded
+    encoded.ljust 3, "0"
+  end
+
+  def encoded_char(char)
+    (char != "A") ? char : "0"
+  end
+
+  def drop_unneeded_letters(word)
+    ['a', 'e', 'i', 'o', 'u', 'y', 'h', 'w'].each do |char| 
+      word = word.gsub(char, '')
+    end
+    word
   end
 
   def is_full?(encoded)

@@ -23,4 +23,14 @@ describe Soundex do
 
   end
 
+  describe 'first rule' do
+
+    it "should retain first letter and drop all other occurrences of a, e, i, o, u, y, h, w" do
+      @soundex.encode("Aaei").must_equal "A000"
+      @soundex.encode("Biou").must_equal "B000"
+      @soundex.encode("Cyhw").must_equal "C000"
+    end
+
+  end
+
 end
