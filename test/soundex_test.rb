@@ -8,29 +8,31 @@ describe Soundex do
   end
 
   describe 'basic rules' do
-
-    it "should have one letter followed by three numerical digits" do
-      encoded = @soundex.encode("BAAA")
-      encoded[0].must_equal "B"
-      encoded[1].must_equal "0"
-      encoded[2].must_equal "0"
-      encoded[3].must_equal "0"
+    it 'should have one letter followed by three numerical digits' do
+      encoded = @soundex.encode('BAAA')
+      encoded[0].must_equal 'B'
+      encoded[1].must_equal '0'
+      encoded[2].must_equal '0'
+      encoded[3].must_equal '0'
     end
 
-    it "should have 4 chars" do
-      @soundex.encode("Bclasd").size.must_equal 4
+    it 'should have 4 chars' do
+      @soundex.encode('Bclasd').size.must_equal 4
     end
-
   end
 
   describe 'first rule' do
-
-    it "should retain first letter and drop all other occurrences of a, e, i, o, u, y, h, w" do
-      @soundex.encode("Aaei").must_equal "A000"
-      @soundex.encode("Biou").must_equal "B000"
-      @soundex.encode("Cyhw").must_equal "C000"
+    it 'should retain first letter and drop all other occurrences of a, e, i, o, u, y, h, w' do
+      @soundex.encode('Aaei').must_equal 'A000'
+      @soundex.encode('Biou').must_equal 'B000'
+      @soundex.encode('Cyhw').must_equal 'C000'
     end
+  end
 
+  describe 'second rule' do
+    it 'should replace b, f, p and v with digit 1' do
+      @soundex.encode('Abfp').must_equal 'A111'
+    end
   end
 
 end

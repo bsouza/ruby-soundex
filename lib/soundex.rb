@@ -26,7 +26,11 @@ private
   end
 
   def encoded_char(char)
-    (char != "A") ? char : "0"
+    if ['b', 'f', 'p', 'v'].include? char then
+      "1"
+    else
+      (char != "A") ? char : "0"
+    end
   end
 
   def drop_unneeded_letters(word)
