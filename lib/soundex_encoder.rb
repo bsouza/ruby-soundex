@@ -9,10 +9,25 @@ class SoundexEncoder
   def encode(word)
     encoded = String.new
 
-    drop_unneeded_letters(word.clone).each_char do |char| 
+    for index in 0 .. word.size - 1
+      char = word[index]
+
       break if is_full? encoded
-      encoded += @encodeds.get(char)
+      encoded_char = @encodeds.get(char)
+      
+      if encoded_char != encoded.chars.last || isVowel?(word[index - 1])
+        encoded += @encodeds.get(char) 
+      end
     end
+
+    # word.each_char do |char| 
+    #   break if is_full? encoded
+    #   encoded_char = @encodeds.get(char)      
+      
+    #   if encoded_char != encoded.chars.last
+    #     encoded += @encodeds.get(char) 
+    #   end
+    # end
 
     encoded.ljust 3, "0"
   end
@@ -20,18 +35,14 @@ class SoundexEncoder
 private
 
   MAX_SIZE = 3
-  UNNEEDED_LETTERS = ['a', 'e', 'i', 'o', 'u', 'y', 'h', 'w']
+  VOWELS = ['a', 'e', 'i', 'o', 'u', 'y']
 
   def is_full?(encoded)
     encoded.size >= MAX_SIZE
   end
 
-  def drop_unneeded_letters(word)
-    UNNEEDED_LETTERS.each do |char| 
-      word = word.gsub(char, '')
-    end
-
-    word
+  def isVowel?(letter)
+    VOWELS.include? letter
   end
 
 end

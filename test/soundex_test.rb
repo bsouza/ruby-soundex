@@ -31,8 +31,47 @@ describe Soundex do
 
   describe 'second rule' do
     it 'should replace b, f, p and v with digit 1' do
-      @soundex.encode('Abfp').must_equal 'A111'
+      @soundex.encode('Abfp').must_equal 'A100'
     end
+  end
+
+  describe 'third rule' do
+    it 'should ignore same encoded value' do
+      @soundex.encode('AaBbbddcc').must_equal 'A132'
+    end
+
+    it 'should ignore same encoded value separeted by h or w' do
+      @soundex.encode('ABhbdwdcc').must_equal 'A132'
+    end
+
+    it 'should not ignore same encoded value when separated by vowels' do
+      @soundex.encode("Arara").must_equal "A660"
+    end
+  end
+
+  describe 'testing sample names (extracted from wiki)' do
+    it 'Robert and Rupert should have the same encoded value' do
+      @soundex.encode('Robert').must_equal "R163"
+      @soundex.encode('Rupert').must_equal "R163"
+    end
+
+    it 'Rubin and Robin should have the same encoded value' do
+      @soundex.encode('Rubin').must_equal "R150"
+      @soundex.encode('Robin').must_equal "R150"
+    end
+
+    it 'Ashcraft and Ashcroft should have the same encoded value' do
+      @soundex.encode('Ashcraft').must_equal "A261"
+      @soundex.encode('Ashcroft').must_equal "A261"
+    end
+
+    it 'Tymczak encoded must be equal to T522' do
+      @soundex.encode('Tymczak').must_equal "T522"
+    end
+
+    # it 'Pfister encoded must be equal to P236' do
+    #   @soundex.encode('Pfister').must_equal "P236"
+    # end
   end
 
 end
