@@ -20,15 +20,6 @@ class SoundexEncoder
       end
     end
 
-    # word.each_char do |char| 
-    #   break if is_full? encoded
-    #   encoded_char = @encodeds.get(char)      
-      
-    #   if encoded_char != encoded.chars.last
-    #     encoded += @encodeds.get(char) 
-    #   end
-    # end
-
     encoded.ljust 3, "0"
   end
 
