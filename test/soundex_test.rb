@@ -37,7 +37,7 @@ describe Soundex do
 
   describe 'third rule' do
     it 'should ignore same encoded value' do
-      @soundex.encode('AaBbbddcc').must_equal 'A132'
+      @soundex.encode('Bbddcchf').must_equal 'B321'
     end
 
     it 'should ignore same encoded value separeted by h or w' do
@@ -46,6 +46,14 @@ describe Soundex do
 
     it 'should not ignore same encoded value when separated by vowels' do
       @soundex.encode("Arara").must_equal "A660"
+    end
+  end
+
+  describe 'fourth rule' do
+    it 'should pads code with zeros when code size is less than 4' do
+      @soundex.encode('Aaaau').must_equal 'A000'
+      @soundex.encode('Aabau').must_equal 'A100'
+      @soundex.encode('Arbau').must_equal 'A610'
     end
   end
 
@@ -69,9 +77,9 @@ describe Soundex do
       @soundex.encode('Tymczak').must_equal "T522"
     end
 
-    # it 'Pfister encoded must be equal to P236' do
-    #   @soundex.encode('Pfister').must_equal "P236"
-    # end
+    it 'Pfister encoded must be equal to P236' do
+      @soundex.encode('Pfister').must_equal "P236"
+    end
   end
 
 end
