@@ -1,4 +1,4 @@
-Soundex algorithm in Ruby
+Simple implementation of soundex algorithm in Ruby
 ----------------------------------------
 
 wiki: [Soundex](http://en.wikipedia.org/wiki/Soundex)
